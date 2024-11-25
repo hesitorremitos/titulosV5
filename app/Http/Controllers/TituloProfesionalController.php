@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carrera;
 use App\Models\Facultad;
+use App\Models\menciones\TPN;
 use App\Models\Persona;
 use App\Models\TituloProfesional;
 use Illuminate\Http\Request;
@@ -20,7 +22,10 @@ class TituloProfesionalController extends Controller
    */
   public function create()
   {
-    return Inertia::render('TituloProfesional');
+    return Inertia::render('TituloProfesional', [
+      'menciones' => TPN::all(),
+      'carreras' => Carrera::all()
+    ]);
   }
 
   /**

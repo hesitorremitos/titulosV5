@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { useForm } from '@inertiajs/vue3';
 import {
 	Button,
+	Dialog,
 	FileUpload,
 	FloatLabel,
 	InputText,
@@ -12,8 +13,19 @@ import {
 	Toast,
 } from 'primevue';
 import { useToast } from 'primevue/usetoast';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import searchPerson from './searchPerson';
+
+const props = defineProps<{
+	menciones: {
+		nombre: string;
+		carrera_id: number;
+	}[];
+	carreras: {
+		nombre: string;
+		id: number;
+	}[];
+}>();
 
 interface Person {
 	ci: string;
@@ -116,6 +128,14 @@ const toast = useToast();
 const onFileSelect = (event) => {
 	form.file = event.files[0];
 };
+
+const mencionDoalog = ref(false);
+watch(
+	() => form.mencion,
+	(form) => {
+		console.log(form);
+	},
+);
 </script>
 
 <template>
@@ -426,13 +446,71 @@ const onFileSelect = (event) => {
 				</div>
 				<div class="grid grid-cols-1 gap-x-3">
 					<FloatLabel variant="on">
-						<InputText
+						<Select
 							id="mencion"
 							class="w-full"
 							v-model="form.mencion"
+							:options="props.menciones.map((m) => m.nombre)"
 							:class="{ 'p-invalid': form.errors.mencion }"
-						/>
+						>
+							<template #footer>
+								<div class="">
+									<Button
+										label="Agregar +"
+										fluid
+										severity="secondary"
+										text
+										size="small"
+										@click="mencionDoalog = true"
+									/>
+								</div>
+							</template>
+						</Select>
 						<label for="mencion">Mención</label>
+						<Dialog
+							v-model:visible="mencionDoalog"
+							modal
+							header="Edit Profile"
+							:style="{ width: '25rem' }"
+						>
+							<span class="text-surface-500 dark:text-surface-400 mb-8 block"
+								>Añadir mencion</span
+							>
+							<div class="mb-4 flex items-center gap-4">
+								<label for="carrera_tpn" class="w-24 font-semibold"
+									>Carrera</label
+								>
+								<Select
+									id="carrera_tpn"
+									class="flex-auto"
+									:options="props.carreras.map((c) => c.nombre)"
+								/>
+							</div>
+							<div class="mb-8 flex items-center gap-4">
+								<label for="mencion_tpn" class="w-24 font-semibold"
+									>Mencion Titulo Provision Nacional</label
+								>
+								<InputText
+									id="email"
+									class="flex-auto"
+									autocomplete="off"
+									name="mencion_tpn"
+								/>
+							</div>
+							<div class="flex justify-end gap-2">
+								<Button
+									type="button"
+									label="Cancel"
+									severity="secondary"
+									@click="mencionDoalog = false"
+								></Button>
+								<Button
+									type="button"
+									label="Save"
+									@click="mencionDoalog = false"
+								></Button>
+							</div>
+						</Dialog>
 					</FloatLabel>
 					<Message
 						v-if="form.errors.mencion"

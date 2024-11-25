@@ -18,6 +18,7 @@ return new class extends Migration
       $table->foreignId('user_id')->constrained('users', 'id');
       $table->foreignIdFor(Persona::class, 'ci')->constrained('personas', 'ci');
       $table->morphs('documentable');
+      $table->string('path', 512);
       $table->timestamps();
     });
   }
