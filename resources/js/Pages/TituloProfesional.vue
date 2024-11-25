@@ -7,6 +7,7 @@ import {
 	FloatLabel,
 	InputText,
 	Message,
+	RadioButton,
 	Select,
 	Toast,
 } from 'primevue';
@@ -25,6 +26,7 @@ interface Person {
 	provincia: string;
 	localidad: string;
 	programa: string;
+	facultad: string;
 	// Agrega otros campos según sea necesario
 }
 
@@ -37,6 +39,7 @@ const form = useForm({
 	pais: '',
 	departamento: '',
 	provincia: '',
+	facultad: '',
 	localidad: '',
 	fojas: '',
 	libro: '',
@@ -44,6 +47,7 @@ const form = useForm({
 	programa: '',
 	mencion: '',
 	file: null,
+	sexo: '',
 });
 
 const programas = ref<Person[]>([]);
@@ -78,6 +82,7 @@ const updateForm = (person: Person) => {
 	form.provincia = person.provincia;
 	form.localidad = person.localidad;
 	form.programa = person.programa;
+	form.facultad = person.facultad;
 	// Actualiza otros campos según sea necesario
 };
 
@@ -321,6 +326,44 @@ const onFileSelect = (event) => {
 					</div>
 				</div>
 
+				<div>
+					<div class="flex flex-wrap gap-x-8">
+						<div class="flex items-center gap-2">
+							<RadioButton
+								inputId="masculino"
+								v-model="form.sexo"
+								value="MASCULINO"
+							/>
+							<label for="masculino">Masculino</label>
+						</div>
+						<div class="flex items-center gap-2">
+							<RadioButton
+								inputId="femenino"
+								v-model="form.sexo"
+								name="FEMENINO"
+								value="FEMENINO"
+							/>
+							<label for="femenino">Femenino</label>
+						</div>
+						<div>
+							<RadioButton
+								inputId="otro"
+								v-model="form.sexo"
+								name="OTRO"
+								value="OTRO"
+							/>
+							<label for="otro">Otro</label>
+						</div>
+					</div>
+					<Message
+						v-if="form.errors.sexo"
+						severity="error"
+						variant="simple"
+						size="small"
+					>
+						{{ form.errors.sexo }}
+					</Message>
+				</div>
 				<div class="grid grid-cols-3 gap-x-3">
 					<div>
 						<FloatLabel variant="on">
@@ -415,6 +458,9 @@ const onFileSelect = (event) => {
 				</div>
 				<Button type="submit" label="Guardar" class="mt-4" />
 			</form>
+			<div>
+				{{ form.errors }}
+			</div>
 		</section>
 	</AuthenticatedLayout>
 </template>
