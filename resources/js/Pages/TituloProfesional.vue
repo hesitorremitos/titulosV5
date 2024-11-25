@@ -120,27 +120,26 @@ const onFileSelect = (event) => {
 
 <template>
 	<AuthenticatedLayout>
-		<section class="w-1/2">
+		<section class="mx-auto w-full max-w-4xl px-4 py-8">
 			<form
 				@submit.prevent="form.post(route('titulo-profesional.store'))"
-				class="grid grid-cols-1 gap-y-3"
+				class="grid gap-y-3 space-y-6 rounded-lg bg-emerald-50 p-8 pt-6 shadow-lg"
 			>
 				<div class="flex w-full gap-x-3">
 					<div class="flex-grow">
 						<FloatLabel variant="on" class="w-full">
 							<InputText
-								class="w-full"
 								id="ci"
 								v-model="form.ci"
 								:class="{ 'p-invalid': form.errors.ci }"
+								class="w-full"
 							/>
 							<label for="ci">CI</label>
 						</FloatLabel>
 						<Message
-							size="small"
-							variant="simple"
 							v-if="form.errors.ci"
 							severity="error"
+							class="mt-1 text-sm"
 						>
 							{{ form.errors.ci }}
 						</Message>
@@ -148,7 +147,7 @@ const onFileSelect = (event) => {
 					<Button @click="buscarPersona" :loading="isLoading" label="Buscar" />
 				</div>
 
-				<div class="grid grid-cols-1 gap-x-3">
+				<div class="space-y-2">
 					<FloatLabel variant="on">
 						<Select
 							id="programa"
@@ -163,33 +162,34 @@ const onFileSelect = (event) => {
 					<Message
 						v-if="form.errors.programa"
 						severity="error"
-						size="small"
-						variant="simple"
+						class="mt-1 text-sm"
 					>
 						{{ form.errors.programa }}
 					</Message>
 				</div>
 
-				<FloatLabel variant="on">
-					<InputText
-						class="w-full"
-						id="nombres"
-						v-model="form.nombres"
-						:readonly="isReadonly"
-						:class="{ 'p-invalid': form.errors.nombres }"
-					/>
-					<label for="nombres">Nombres</label>
-				</FloatLabel>
-				<Message
-					v-if="form.errors.nombres"
-					severity="error"
-					size="small"
-					variant="simple"
-				>
-					{{ form.errors.nombres }}
-				</Message>
+				<div class="space-y-2">
+					<FloatLabel variant="on">
+						<InputText
+							class="w-full"
+							id="nombres"
+							v-model="form.nombres"
+							:readonly="isReadonly"
+							:class="{ 'p-invalid': form.errors.nombres }"
+						/>
+						<label for="nombres">Nombres</label>
+					</FloatLabel>
+					<Message
+						v-if="form.errors.nombres"
+						severity="error"
+						class="mt-1 text-sm"
+					>
+						{{ form.errors.nombres }}
+					</Message>
+				</div>
+
 				<div class="grid grid-cols-2 gap-x-3">
-					<div>
+					<div class="mb-4">
 						<FloatLabel variant="on">
 							<InputText
 								class="w-full"
@@ -203,13 +203,12 @@ const onFileSelect = (event) => {
 						<Message
 							v-if="form.errors.apellido_paterno"
 							severity="error"
-							size="small"
-							variant="simple"
+							class="mt-1 text-sm"
 						>
 							{{ form.errors.apellido_paterno }}
 						</Message>
 					</div>
-					<div>
+					<div class="mb-4">
 						<FloatLabel variant="on">
 							<InputText
 								class="w-full"
@@ -226,7 +225,7 @@ const onFileSelect = (event) => {
 					</div>
 				</div>
 				<div class="grid grid-cols-3 gap-x-3">
-					<div>
+					<div class="mb-4">
 						<FloatLabel variant="on">
 							<InputText
 								class="w-full"
@@ -241,7 +240,7 @@ const onFileSelect = (event) => {
 							{{ form.errors.fecha_nacimiento }}
 						</Message>
 					</div>
-					<div>
+					<div class="mb-4">
 						<FloatLabel variant="on">
 							<InputText
 								class="w-full"
@@ -255,14 +254,13 @@ const onFileSelect = (event) => {
 						<Message
 							v-if="form.errors.pais"
 							severity="error"
-							variant="simple"
-							size="small"
+							class="mt-1 text-sm"
 						>
 							{{ form.errors.pais }}
 						</Message>
 					</div>
 
-					<div>
+					<div class="mb-4">
 						<FloatLabel variant="on">
 							<InputText
 								class="w-full"
@@ -276,15 +274,14 @@ const onFileSelect = (event) => {
 						<Message
 							v-if="form.errors.departamento"
 							severity="error"
-							variant="simple"
-							size="small"
+							class="mt-1 text-sm"
 						>
 							{{ form.errors.departamento }}
 						</Message>
 					</div>
 				</div>
 				<div class="grid grid-cols-2 gap-x-3">
-					<div>
+					<div class="mb-4">
 						<FloatLabel variant="on">
 							<InputText
 								class="w-full"
@@ -298,13 +295,12 @@ const onFileSelect = (event) => {
 						<Message
 							v-if="form.errors.provincia"
 							severity="error"
-							variant="simple"
-							size="small"
+							class="mt-1 text-sm"
 						>
 							{{ form.errors.provincia }}
 						</Message>
 					</div>
-					<div>
+					<div class="mb-4">
 						<FloatLabel variant="on">
 							<InputText
 								class="w-full"
@@ -318,17 +314,16 @@ const onFileSelect = (event) => {
 						<Message
 							v-if="form.errors.localidad"
 							severity="error"
-							variant="simple"
-							size="small"
+							class="mt-1 text-sm"
 						>
 							{{ form.errors.localidad }}
 						</Message>
 					</div>
 				</div>
 
-				<div>
-					<div class="flex flex-wrap gap-x-8">
-						<div class="flex items-center gap-2">
+				<div class="space-y-2">
+					<div class="flex flex-wrap justify-center gap-6">
+						<div class="flex items-center space-x-2">
 							<RadioButton
 								inputId="masculino"
 								v-model="form.sexo"
@@ -336,7 +331,7 @@ const onFileSelect = (event) => {
 							/>
 							<label for="masculino">Masculino</label>
 						</div>
-						<div class="flex items-center gap-2">
+						<div class="flex items-center space-x-2">
 							<RadioButton
 								inputId="femenino"
 								v-model="form.sexo"
@@ -345,7 +340,7 @@ const onFileSelect = (event) => {
 							/>
 							<label for="femenino">Femenino</label>
 						</div>
-						<div>
+						<div class="flex items-center space-x-2">
 							<RadioButton
 								inputId="otro"
 								v-model="form.sexo"
@@ -358,14 +353,13 @@ const onFileSelect = (event) => {
 					<Message
 						v-if="form.errors.sexo"
 						severity="error"
-						variant="simple"
-						size="small"
+						class="mt-1 text-sm"
 					>
 						{{ form.errors.sexo }}
 					</Message>
 				</div>
 				<div class="grid grid-cols-3 gap-x-3">
-					<div>
+					<div class="mb-4">
 						<FloatLabel variant="on">
 							<InputText
 								id="fojas"
@@ -378,13 +372,12 @@ const onFileSelect = (event) => {
 						<Message
 							v-if="form.errors.fojas"
 							severity="error"
-							variant="simple"
-							size="small"
+							class="mt-1 text-sm"
 						>
 							{{ form.errors.fojas }}
 						</Message>
 					</div>
-					<div>
+					<div class="mb-4">
 						<FloatLabel variant="on">
 							<InputText
 								class="w-full"
@@ -397,13 +390,12 @@ const onFileSelect = (event) => {
 						<Message
 							v-if="form.errors.libro"
 							severity="error"
-							variant="simple"
-							size="small"
+							class="mt-1 text-sm"
 						>
 							{{ form.errors.libro }}
 						</Message>
 					</div>
-					<div>
+					<div class="mb-4">
 						<FloatLabel variant="on">
 							<Select
 								class="w-full"
@@ -417,14 +409,13 @@ const onFileSelect = (event) => {
 						<Message
 							v-if="form.errors.nivel"
 							severity="error"
-							size="small"
-							variant="simple"
+							class="mt-1 text-sm"
 						>
 							{{ form.errors.nivel }}
 						</Message>
 					</div>
 				</div>
-				<div class="grid grid-cols-1 gap-x-3">
+				<div class="space-y-2">
 					<FloatLabel variant="on">
 						<InputText
 							id="mencion"
@@ -437,8 +428,7 @@ const onFileSelect = (event) => {
 					<Message
 						v-if="form.errors.mencion"
 						severity="error"
-						size="small"
-						variant="simple"
+						class="mt-1 text-sm"
 					>
 						{{ form.errors.mencion }}
 					</Message>
@@ -458,7 +448,7 @@ const onFileSelect = (event) => {
 				</div>
 				<Button type="submit" label="Guardar" class="mt-4" />
 			</form>
-			<div>
+			<div class="mb-4">
 				{{ form.errors }}
 			</div>
 		</section>
@@ -466,7 +456,9 @@ const onFileSelect = (event) => {
 </template>
 
 <style>
-.p-invalid {
-	border-color: red;
+@media (max-width: 768px) {
+	.grid {
+		grid-template-columns: 1fr !important;
+	}
 }
 </style>
