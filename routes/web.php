@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TituloProfesionalController;
+use App\Models\menciones\TPN;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -28,5 +30,13 @@ Route::middleware('auth')->group(function () {
 Route::prefix('dashboard')->group(function () {
   Route::resource('titulo-profesional', TituloProfesionalController::class);
 });
+
+Route::post('mencion', function (Request $request) {
+  $mencion = new TPN;
+  $mencion->nombre = $request->mencion_tpn;
+  $mencion->carrera_id = $request->carrera_tpn;
+  $mencion->save();
+  return $mencion;
+})->name('tpn.store');
 
 require __DIR__ . '/auth.php';

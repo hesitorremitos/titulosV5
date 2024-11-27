@@ -130,6 +130,18 @@ const onFileSelect = (event) => {
 };
 
 const mencionDoalog = ref(false);
+const mencionForm = useForm({
+	carrera_tpn: '',
+	mencion_tpn: '',
+});
+
+const submitMencion = () => {
+	console.log(mencionForm);
+	mencionForm.post(route('tpn.store'));
+	mencionForm.reset();
+	mencionDoalog.value = false;
+};
+
 watch(
 	() => form.mencion,
 	(form) => {
@@ -385,7 +397,7 @@ watch(
 					</Message>
 				</div>
 				<div class="grid grid-cols-3 gap-x-3">
-					<div>
+					<div class="">
 						<FloatLabel variant="on">
 							<InputText
 								id="fojas"
@@ -483,7 +495,15 @@ watch(
 								<Select
 									id="carrera_tpn"
 									class="flex-auto"
-									:options="props.carreras.map((c) => c.nombre)"
+									:options="
+										props.carreras.map((c, i) => ({
+											label: c.nombre,
+											value: c.id,
+										}))
+									"
+									optionLabel="label"
+									optionValue="value"
+									v-model="mencionForm.carrera_tpn"
 								/>
 							</div>
 							<div class="mb-8 flex items-center gap-4">
@@ -495,6 +515,7 @@ watch(
 									class="flex-auto"
 									autocomplete="off"
 									name="mencion_tpn"
+									v-model="mencionForm.mencion_tpn"
 								/>
 							</div>
 							<div class="flex justify-end gap-2">
@@ -506,8 +527,8 @@ watch(
 								></Button>
 								<Button
 									type="button"
-									label="Save"
-									@click="mencionDoalog = false"
+									label="Guardar"
+									@click="submitMencion"
 								></Button>
 							</div>
 						</Dialog>

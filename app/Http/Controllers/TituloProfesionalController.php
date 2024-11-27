@@ -50,7 +50,7 @@ class TituloProfesionalController extends Controller
       'libro' => 'required|numeric',
       'nivel' => 'required|min:3',
       'sexo' => 'required',
-
+      'file' => 'required|file|mimes:pdf'
     ]);
 
     $facultad = Facultad::firstOrCreate([
@@ -78,6 +78,10 @@ class TituloProfesionalController extends Controller
       $persona->genero = $valitated['sexo'];
       $persona->save();
     }
+    // Alacenar el file en el storage con el siguiente formato: TituloProfesional/Carrera/CI.pdf
+    $file = $valitated['file'];
+    $file_name = $carrera->nombre . '/' . $persona->ci . '.pdf';
+    $file->storeAs('TituloProfesional/' . $carrera->nombre, $persona->ci . '.pdf');
     return $persona;
   }
 

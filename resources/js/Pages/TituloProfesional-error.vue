@@ -94,6 +94,7 @@ const onProgramaChange = () => {
 
 <template>
 	<AuthenticatedLayout>
+		<h1>TITULO PROFESIONAL</h1>
 		<section class="w-1/2">
 			<form @submit.prevent="form.post(route('titulo-profesional.store'))">
 				<div class="flex justify-center gap-x-3">
