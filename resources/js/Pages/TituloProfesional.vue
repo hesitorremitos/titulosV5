@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { useForm } from '@inertiajs/vue3';
 import {
 	Button,
+	DatePicker,
 	Dialog,
 	FileUpload,
 	FloatLabel,
@@ -53,10 +54,12 @@ const form = useForm({
 	provincia: '',
 	facultad: '',
 	localidad: '',
+	nro_documento: '',
 	fojas: '',
 	libro: '',
 	nivel: '',
 	programa: '',
+	fecha_emision: undefined,
 	mencion: '',
 	file: null,
 	sexo: '',
@@ -152,7 +155,7 @@ watch(
 
 <template>
 	<AuthenticatedLayout>
-		<section class="w-1/2">
+		<section class="w-2/3">
 			<form
 				@submit.prevent="form.post(route('titulo-profesional.store'))"
 				class="grid grid-cols-1 gap-y-3"
@@ -396,7 +399,26 @@ watch(
 						{{ form.errors.sexo }}
 					</Message>
 				</div>
-				<div class="grid grid-cols-3 gap-x-3">
+				<div class="grid grid-cols-4 gap-x-3">
+					<div>
+						<FloatLabel variant="on">
+							<InputText
+								class="w-full"
+								id="nro_documento"
+								v-model="form.nro_documento"
+								:class="{ 'p-invalid': form.errors.nro_documento }"
+							/>
+							<label for="nro_documento">Nro</label>
+						</FloatLabel>
+						<Message
+							v-if="form.errors.nro_documento"
+							severity="error"
+							variant="simple"
+							size="small"
+						>
+							{{ form.errors.nro_documento }}
+						</Message>
+					</div>
 					<div class="">
 						<FloatLabel variant="on">
 							<InputText
@@ -456,7 +478,25 @@ watch(
 						</Message>
 					</div>
 				</div>
-				<div class="grid grid-cols-1 gap-x-3">
+				<div class="grid grid-cols-2 gap-x-3">
+					<div>
+						<FloatLabel variant="on">
+							<DatePicker
+								id="fecha_emision"
+								v-model="form.fecha_emision"
+								:class="{ 'p-invalid': form.errors.fecha_emision }"
+							/>
+							<label for="fecha_emision">Fecha de Emision</label>
+						</FloatLabel>
+						<Message
+							v-if="form.errors.fecha_emision"
+							severity="error"
+							size="small"
+							variant="simple"
+						>
+							{{ form.errors.fecha_emision }}
+						</Message>
+					</div>
 					<FloatLabel variant="on">
 						<Select
 							id="mencion"
@@ -554,6 +594,14 @@ watch(
 							@select="onFileSelect"
 						/>
 					</div>
+					<Message
+						v-if="form.errors.file"
+						severity="error"
+						size="small"
+						variant="simple"
+					>
+						{{ form.errors.file }}
+					</Message>
 				</div>
 				<Button type="submit" label="Guardar" class="mt-4" />
 			</form>

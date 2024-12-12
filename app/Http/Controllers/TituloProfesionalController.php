@@ -46,8 +46,10 @@ class TituloProfesionalController extends Controller
       'mencion' => 'required|min:3',
       'programa' => 'required|min:3',
       'facultad' => 'required|min:3',
+      'nro_documento' => 'required|numeric',
       'fojas' => 'required|numeric',
       'libro' => 'required|numeric',
+      'fecha_emision' => 'required|date',
       'nivel' => 'required|min:3',
       'sexo' => 'required',
       'file' => 'required|file|mimes:pdf'
@@ -81,7 +83,7 @@ class TituloProfesionalController extends Controller
     // Alacenar el file en el storage con el siguiente formato: TituloProfesional/Carrera/CI.pdf
     $file = $valitated['file'];
     $file_name = $carrera->nombre . '/' . $persona->ci . '.pdf';
-    $file->storeAs('TituloProfesional/' . $carrera->nombre, $persona->ci . '.pdf');
+    $file->storeAs('TituloProfesional/'. $carrera->nombre, $persona->ci . '- '.  $persona->nombres .' '.$persona->paterno.' '.$persona->materno.'.pdf');
     return $persona;
   }
 
