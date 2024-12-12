@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrera;
 use App\Models\Facultad;
+use App\Models\menciones\DA;
 use App\Models\menciones\TPN;
 use App\Models\Persona;
 use App\Models\TituloProfesional;
@@ -23,7 +24,7 @@ class TituloProfesionalController extends Controller
   public function create()
   {
     return Inertia::render('TituloProfesional', [
-      'menciones' => TPN::all(),
+      'menciones' => DA::all(),
       'carreras' => Carrera::all()
     ]);
   }
@@ -60,7 +61,7 @@ class TituloProfesionalController extends Controller
     ]);
 
     $carrera  = $facultad->carreras()->firstOrCreate([
-      'nombre' => $valitated['programa'],
+      'programa' => $valitated['programa'],
     ]);
     // buscar la persona
     $finded_person = Persona::find($valitated['ci']);

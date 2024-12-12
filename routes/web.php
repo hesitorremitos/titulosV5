@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('dashboard')->group(function () {
   Route::resource('titulo-profesional', TituloProfesionalController::class);
-});
+})->middleware(['auth']);
 
 Route::post('mencion', function (Request $request) {
   $mencion = new TPN;

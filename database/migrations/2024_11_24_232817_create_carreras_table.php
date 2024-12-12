@@ -12,8 +12,8 @@ return new class extends Migration
   public function up(): void
   {
     Schema::create('carreras', function (Blueprint $table) {
-      $table->id();
-      $table->string('nombre');
+      $table->char('id', 5)->primary();
+      $table->string('programa');
       $table->string('direccion')->nullable();
       $table->foreignId('facultad_id')->constrained('facultades', 'id');
       $table->timestamps();
