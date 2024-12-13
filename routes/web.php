@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DiplomaAcademicoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TituloProfesionalController;
 use App\Models\menciones\TPN;
@@ -28,6 +29,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix('dashboard')->group(function () {
+  Route::resource('diploma-academico', DiplomaAcademicoController::class);
   Route::resource('titulo-profesional', TituloProfesionalController::class);
 })->middleware(['auth']);
 

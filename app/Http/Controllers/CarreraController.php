@@ -34,9 +34,18 @@ class CarreraController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Carrera $carrera)
+    public function show($id)
     {
-        //
+        // Cargar la carrera junto con sus menciones
+        $carrera = Carrera::with('menciones')->find($id);
+
+        // Verificar si la carrera existe
+        if (!$carrera) {
+            return response()->json(['message' => 'Carrera not found'], 404);
+        }
+
+        // Retornar la carrera con sus menciones
+        return response()->json($carrera);
     }
 
     /**
