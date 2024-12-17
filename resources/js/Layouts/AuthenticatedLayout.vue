@@ -175,7 +175,7 @@ const showingNavigationDropdown = ref(false);
 					<Aside />
 				</aside>
 				<!-- Page Content -->
-				<main>
+				<main class="w-full">
 					<slot />
 				</main>
 			</div>
