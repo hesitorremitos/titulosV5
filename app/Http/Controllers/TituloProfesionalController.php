@@ -51,7 +51,6 @@ class TituloProfesionalController extends Controller
       'fojas' => 'required|numeric',
       'libro' => 'required|numeric',
       'fecha_emision' => 'required|date',
-      'nivel' => 'required|min:3',
       'sexo' => 'required',
       'file' => 'required|file|mimes:pdf'
     ]);

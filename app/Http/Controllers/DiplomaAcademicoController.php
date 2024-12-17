@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Carrera;
+use App\Models\DiplomaAcademico;
 use App\Models\Facultad;
 use App\Models\menciones\DA;
 use App\Models\menciones\TPN;
@@ -16,7 +17,11 @@ class DiplomaAcademicoController extends Controller
     /**
    * Display a listing of the resource.
    */
-  public function index() {}
+  public function index() {
+    return Inertia::render('Search', [
+      'personas' => Persona::with('diplomas_academicos')->get(),
+    ]);
+  }
 
   /**
    * Show the form for creating a new resource.
@@ -51,7 +56,6 @@ class DiplomaAcademicoController extends Controller
       'fojas' => 'required|numeric',
       'libro' => 'required|numeric',
       'fecha_emision' => 'required|date',
-      'nivel' => 'required|min:3',
       'sexo' => 'required',
       'file' => 'required|file|mimes:pdf'
     ]);
@@ -84,7 +88,7 @@ class DiplomaAcademicoController extends Controller
     // Alacenar el file en el storage con el siguiente formato: TituloProfesional/Carrera/CI.pdf
     $file = $valitated['file'];
     $file_name = $carrera->nombre . '/' . $persona->ci . '.pdf';
-    $file->storeAs('TituloProfesional/'. $carrera->nombre, $persona->ci . '- '.  $persona->nombres .' '.$persona->paterno.' '.$persona->materno.'.pdf');
+    $file->storeAs('DiplomaAcademico/'. $carrera->nombre, $persona->ci . '- '.  $persona->nombres .' '.$persona->paterno.' '.$persona->materno.'.pdf');
     return $persona;
   }
 

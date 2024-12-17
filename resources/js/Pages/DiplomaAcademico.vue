@@ -14,7 +14,7 @@ import {
 	Toast,
 } from 'primevue';
 import { useToast } from 'primevue/usetoast';
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import searchPerson from './searchPerson';
 
 const props = defineProps<{
@@ -23,8 +23,12 @@ const props = defineProps<{
 		carrera_id: number;
 	}[];
 	carreras: {
-		nombre: string;
+		programa: string;
 		id: number;
+		menciones: {
+			nombre: string;
+			id: number;
+		};
 	}[];
 }>();
 
@@ -57,7 +61,6 @@ const form = useForm({
 	nro_documento: '',
 	fojas: '',
 	libro: '',
-	nivel: '',
 	programa: '',
 	fecha_emision: undefined,
 	mencion: '',
@@ -113,7 +116,6 @@ const clearForm = () => {
 	form.programa = '';
 	form.fojas = '';
 	form.libro = '';
-	form.nivel = '';
 	form.mencion = '';
 	// Limpia otros campos según sea necesario
 };
@@ -151,13 +153,18 @@ watch(
 		console.log(form);
 	},
 );
+
+const filteredMenciones = computed(() => {
+	console.log(form.programa);
+	const carrera = props.carreras.find((c) => c.programa == form.programa);
+	console.log(carrera?.menciones);
+	// Filtrar solamente el nombre de las menciones
+	return carrera?.menciones || [];
+});
 </script>
 
 <template>
 	<AuthenticatedLayout>
-		<div>
-			{{ carreras }}
-		</div>
 		<section class="w-2/3">
 			<form
 				@submit.prevent="form.post(route('titulo-profesional.store'))"
@@ -402,7 +409,7 @@ watch(
 						{{ form.errors.sexo }}
 					</Message>
 				</div>
-				<div class="grid grid-cols-4 gap-x-3">
+				<div class="grid grid-cols-3 gap-x-3">
 					<div>
 						<FloatLabel variant="on">
 							<InputText
@@ -460,26 +467,6 @@ watch(
 							{{ form.errors.libro }}
 						</Message>
 					</div>
-					<div>
-						<FloatLabel variant="on">
-							<Select
-								class="w-full"
-								id="nivel"
-								v-model="form.nivel"
-								:options="['Licenciatura']"
-								:class="{ 'p-invalid': form.errors.nivel }"
-							/>
-							<label for="nivel">Nivel</label>
-						</FloatLabel>
-						<Message
-							v-if="form.errors.nivel"
-							severity="error"
-							size="small"
-							variant="simple"
-						>
-							{{ form.errors.nivel }}
-						</Message>
-					</div>
 				</div>
 				<div class="grid grid-cols-2 gap-x-3">
 					<div>
@@ -505,7 +492,9 @@ watch(
 							id="mencion"
 							class="w-full"
 							v-model="form.mencion"
-							:options="props.menciones.map((m) => m.nombre)"
+							:options="filteredMenciones"
+							option-label="nombre"
+							option-value="nombre"
 							:class="{ 'p-invalid': form.errors.mencion }"
 						>
 							<template #footer>
@@ -540,7 +529,7 @@ watch(
 									class="flex-auto"
 									:options="
 										props.carreras.map((c, i) => ({
-											label: c.nombre,
+											label: c.programa,
 											value: c.id,
 										}))
 									"

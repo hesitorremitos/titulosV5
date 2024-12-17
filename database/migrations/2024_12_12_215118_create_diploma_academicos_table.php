@@ -20,13 +20,25 @@ return new class extends Migration
     });
     Schema::create('diploma_academicos', function (Blueprint $table) {
       $table->id();
-      $table->unsignedInteger('nro_documento');
+      $table->string('ci');
+      $table->unsignedInteger('nro_documento')->unique();
       $table->unsignedInteger('fojas');
       $table->unsignedInteger('libro');
       $table->date('fecha_emision');
+      $table->string('observaciones')->nullable();
+      $table->string('graduacion')->nullable();
+      $table->string('file_dir')->nullable();
       $table->foreignId('mencion_da_id')->constrained('menciones_da', 'id');
+      $table->foreignId('graduacion_id')->constrained('graduacion_da','id');
       $table->timestamps();
+      // Llave foranea para ci con la tabla personas
+      $table->foreign('ci')->references('ci')->on('personas');
     });
+      Schema::create('graduacion_da', function(Blueprint $table){
+        $table->id();
+        $table->string('medio_graduacion');
+      });
+
     }
 
     /**
@@ -36,5 +48,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('diploma_academicos');
         Schema::dropIfExists('menciones_da');
+        Schema::dropIfExists('graduacion_da');
     }
 };
