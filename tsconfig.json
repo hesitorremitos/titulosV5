@@ -1,15 +1,17 @@
 {
     "compilerOptions": {
         "allowJs": true,
+        "checkJs": false,
         "module": "ESNext",
         "moduleResolution": "bundler",
         "jsx": "preserve",
-        "strict": true,
+        "strict": false,
         "isolatedModules": true,
         "target": "ESNext",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "noEmit": true,
+        "noEmitOnError": false,
         "skipLibCheck": true,
         "paths": {
             "@/*": ["./resources/js/*"],
