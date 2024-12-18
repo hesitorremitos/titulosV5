@@ -49,11 +49,11 @@ class CheckFiles extends Command
         }
         $fileName = $fileName . '.pdf';
         $this->info('Verificando archivo: ' . $filePath . $fileName);
-        if (Storage::disk('local')->exists("respaldo/" . $filePath . $fileName)) {
+        if (Storage::disk('local')->exists("respaldo/2020/" . $filePath . $fileName)) {
           $this->info('El archivo existe');
 
           // Mover el archivo de respaldo a la carpeta DiplomaAcademico
-          Storage::disk('local')->copy("respaldo/" . $filePath . $fileName, $filePath . $fileName);
+          Storage::disk('local')->copy("respaldo/2020/" . $filePath . $fileName, $filePath . $fileName);
           // Actualizar el registro en la base de datos
           $diploma->file_dir = $filePath . $fileName;
           $diploma->verificado = true;

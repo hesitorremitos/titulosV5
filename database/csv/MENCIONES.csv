@@ -1,73 +1,74 @@
-﻿,Tecnico(a) Universitario(a) superior en contabilidad,COP
-,Licenciado(a) en auditoria - contaduria publica,COP
-,Licenciado(a) en administracion de empresas,ADM
-,Licenciado(a) en contabilidad y finanzas,CTB
-,Licenciado(a) en economia,ECO
-,Licenciado(a) en economia,CEC
-,Licenciado(a) en economia,UEC
-,Licenciado(a) en ingenieria comercial,ICO
-,Licenciado(a) en enfermeria,SEN
-,Tecnico(a) en enfermeria,SEN
-,Auxiliar en enfermeria,SEN
-,Licenciado(a) en enfermeria,ENF
-,Tecnico(a) en enfermeria,ENF
-,Auxiliar en enfermeria,ENF
-,Licenciado(a) en enfermeria,LEF
-,Tecnico(a) en enfermeria,LEF
-,Auxiliar en enfermeria,LEF
-,Licenciado(a) en enfermeria,VEF
-,Tecnico(a) en enfermeria,VEF
-,Auxiliar en enfermeria,VEF
-,Licenciado(a) en enfermeria,UEN
-,Tecnico(a) en enfermeria,UEN
-,Auxiliar en enfermeria,UEN
-,Licenciado(a) en trabajo social,TCS
-,Licenciado(a) en trabajo social,CTS
-,Licenciado(a) en lingüística e idiomas,LEI
-,Licenciado(a) en lingüística e idiomas,ULI
-,Licenciado(a) en lingüística e idiomas,CLI
-,Licenciado(a) en turismo,TUR
-,Licenciado(a) en turismo,TUU
-,Licenciado(a) en ciencias de la comunicacion,COM
-,Medico Cirujano ,MED
-,Licenciado(a) en Ingenieria Civil,CIV
-,Tecnico(a) universitario(a) superior en construcciones civiles,CCV
-,Licenciado(a) en ingenieria en geodesia y topografia,GYT
-,Licenciado(a) en Geodesia y topografia,GYT
-,Tecnico(a) universitario superior en tecnologia,GYT
-,Licenciado(a) en ingenieria geologica,IGO
-,Licenciado(a) en ingenieria del medio ambiente,IMA
-,Licenciado(a) en medicina veterinaria y zootecnia,MVZ
-,Licenciado(a) en ingenieria agropecuaria,VAG
-,Licenciado(a) en ingenieria agroindustrial,IAI
-,Licenciado(a) en ingenieria agronomica,AGR
-,Licenciado(a) en ingenieria desarrollo rural,IDR
-,Licenciado(a) en ingenieria de sistemas,SIS
-,Licenciado(a) en ingenieria de sistemas,SIT
-,Licenciado(a) en ingenieria electrica,ELE
-,Tecnico(a) universitario medio en electricidad,TED
-,Tecnico(a) universitario medio en mecanica automotriz,TMA
-,Tecnico(a) universitario medio en mecanica general,TMG
-,Licenciado(a) en mecanica automotriz,MAU
-,Licenciado(a) en mecanica automotriz,LMA
-,Licenciado(a) en ingenieria electronica,IET
-,Tecnico(a) universitario medio en electronica,TEA
-,Licenciado(a) en ingenieria mecatronica,IMT
-,Tecnico(a) universitario superior en mecatronica,IMT
-,Licenciado(a) en ingenieria informatica,INF
-,ingenieria informatica - tecnico superior en redes y ciberseguridad,TSR
-,ingenieria informatica - tecnico superior en sistemas informaticos,TSS
-,Licenciado(a) en ciencias quimicas,QMC
-,Licenciado(a) en ciencias quimicas,QMI
-,Licenciado(a) en estadistica,EST
-,Licenciado(a) en matematicas,MAT
-,Licenciado(a) en fisica,FIS
-,Licenciado(a) en derecho,DER
-,Licenciado(a) en derecho,DET
-,Licenciado(a) en derecho,CDE
-,Licenciado(a) en ingenieria de minas,IMI
-,Licenciado(a) en ingenieria de procesos de materias primas minerales,PMM
-,Licenciado(a) en artes plasticas,APT
-,Licenciado(a) en artes musicales,ARM
-,Licenciado(a) en arquitectura,ARQ
-,Licenciado(a) en pedagogia intercultural,PIC
+﻿id_mencion,mencion,id_carrera
+1,Tecnico(a) Universitario(a) superior en contabilidad,COP
+2,Licenciado(a) en auditoria - contaduria publica,COP
+3,Licenciado(a) en administracion de empresas,ADM
+4,Licenciado(a) en contabilidad y finanzas,CTB
+5,Licenciado(a) en economia,ECO
+6,Licenciado(a) en economia,CEC
+7,Licenciado(a) en economia,UEC
+8,Licenciado(a) en ingenieria comercial,ICO
+9,Licenciado(a) en enfermeria,SEN
+10,Tecnico(a) en enfermeria,SEN
+11,Auxiliar en enfermeria,SEN
+12,Licenciado(a) en enfermeria,ENF
+13,Tecnico(a) en enfermeria,ENF
+14,Auxiliar en enfermeria,ENF
+15,Licenciado(a) en enfermeria,LEF
+16,Tecnico(a) en enfermeria,LEF
+17,Auxiliar en enfermeria,LEF
+18,Licenciado(a) en enfermeria,VEF
+19,Tecnico(a) en enfermeria,VEF
+20,Auxiliar en enfermeria,VEF
+21,Licenciado(a) en enfermeria,UEN
+22,Tecnico(a) en enfermeria,UEN
+23,Auxiliar en enfermeria,UEN
+24,Licenciado(a) en trabajo social,TCS
+25,Licenciado(a) en trabajo social,CTS
+26,Licenciado(a) en lingüística e idiomas,LEI
+27,Licenciado(a) en lingüística e idiomas,ULI
+28,Licenciado(a) en lingüística e idiomas,CLI
+29,Licenciado(a) en turismo,TUR
+30,Licenciado(a) en turismo,TUU
+31,Licenciado(a) en ciencias de la comunicación,COM
+32,Medico Cirujano ,MED
+33,Licenciado(a) en Ingenieria Civil,CIV
+34,Tecnico(a) universitario(a) superior en construcciones civiles,CCV
+35,Licenciado(a) en ingenieria en geodesia y topografia,GYT
+36,Licenciado(a) en Geodesia y topografia,GYT
+37,Tecnico(a) universitario superior en tecnologia,GYT
+38,Licenciado(a) en ingenieria geologica,IGO
+39,Licenciado(a) en ingenieria del medio ambiente,IMA
+40,Licenciado(a) en medicina veterinaria y zootecnia,MVZ
+41,Licenciado(a) en ingenieria agropecuaria,VAG
+42,Licenciado(a) en ingenieria agroindustrial,IAI
+43,Licenciado(a) en ingenieria agronomica,AGR
+44,Licenciado(a) en ingenieria desarrollo rural,IDR
+45,Licenciado(a) en ingenieria de sistemas,SIS
+46,Licenciado(a) en ingenieria de sistemas,SIT
+47,Licenciado(a) en ingenieria electrica,ELE
+48,Tecnico(a) universitario medio en electricidad,TED
+49,Tecnico(a) universitario medio en mecanica automotriz,TMA
+50,Tecnico(a) universitario medio en mecanica general,TMG
+51,Licenciado(a) en mecanica automotriz,MAU
+52,Licenciado(a) en mecanica automotriz,LMA
+53,Licenciado(a) en ingenieria electronica,IET
+54,Tecnico(a) universitario medio en electronica,TEA
+55,Licenciado(a) en ingenieria mecatronica,IMT
+56,Tecnico(a) universitario superior en mecatronica,IMT
+57,Licenciado(a) en ingenieria informatica,INF
+58,ingenieria informatica - tecnico superior en redes y ciberseguridad,TSR
+59,ingenieria informatica - tecnico superior en sistemas informaticos,TSS
+60,Licenciado(a) en ciencias quimicas,QMC
+61,Licenciado(a) en ciencias quimicas,QMI
+62,Licenciado(a) en estadistica,EST
+63,Licenciado(a) en matematicas,MAT
+64,Licenciado(a) en fisica,FIS
+65,Licenciado(a) en derecho,DER
+66,Licenciado(a) en derecho,DET
+67,Licenciado(a) en derecho,CDE
+68,Licenciado(a) en ingenieria de minas,IMI
+69,Licenciado(a) en ingenieria de procesos de materias primas minerales,PMM
+70,Licenciado(a) en artes plasticas,APT
+71,Licenciado(a) en artes musicales,ARM
+72,Licenciado(a) en arquitectura,ARQ
+73,Licenciado(a) en pedagogia intercultural,PIC
