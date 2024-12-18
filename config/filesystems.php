@@ -36,6 +36,12 @@ return [
             'serve' => true,
             'throw' => false,
         ],
+        'respaldo' => [
+            'driver' => 'local',
+            'root' => storage_path('app/respaldo'),
+            'serve' => true,
+            'throw' => false,
+        ],
 
         'public' => [
             'driver' => 'local',

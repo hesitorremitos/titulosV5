@@ -33,15 +33,22 @@ class CheckFiles extends Command
             # el nombre del archivo sera CI - NombresPersonas - ApellidoPaterno - ApellidoMaterno.pdf
             # Si no tiene apellido paterno o materno, se omiten
             $fileName = $diploma->persona->ci . ' - ' . $diploma->persona->nombres;
-            if($diploma->persona->apellido_paterno) {
-                $fileName .= ' ' . $diploma->persona->apellido_paterno;
+            if($diploma->persona->paterno) {
+                $fileName .= ' ' . $diploma->persona->paterno;
             }
-            if($diploma->persona->apellido_materno) {
-                $fileName .= ' ' . $diploma->persona->apellido_materno;
+            if($diploma->persona->materno) {
+                $fileName .= ' ' . $diploma->persona->materno;
             }
             $fileName = $fileName . '.pdf';
 
             $this->info('Verificando archivo: ' . $fileName);
+
+            if(file_exists($filePath . $fileName)) {
+                $this->info('El archivo existe');
+                $diploma->update(['archivo' => $fileName]);
+            } else {
+                $this->error('El archivo no existe');
+            }
         }
     }
 }

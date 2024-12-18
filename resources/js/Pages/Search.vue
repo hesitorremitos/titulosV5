@@ -65,9 +65,11 @@ const filters = ref({
 				<Column field="mencion.nombre" header="Mencion"></Column>
 				<Column field="fecha_emision" header="Fecha de emision"></Column>
 				<Column header="Accion">
-					<div class="card flex justify-center">
-						<Button label="VER" type="button" />
-					</div>
+					<template #body="slotProps">
+						<div class="card flex justify-center">
+							<Button size="small" :label="slotProps.data.id" type="button" />
+						</div>
+					</template>
 				</Column>
 			</DataTable>
 		</section>
