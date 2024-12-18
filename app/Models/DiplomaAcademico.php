@@ -8,7 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class DiplomaAcademico extends Model
 {
-    //
+  //
+  protected $primaryKey = 'id';
+  protected $fillable = [
+    'ci',
+    'nro_documento',
+    'fojas',
+    'libro',
+    'fecha_emision',
+    'observaciones',
+    'graduacion_id',
+    'mencion_da_id',
+    'file_dir',
+    'verificado'
+  ];
 
     public function persona()
     {

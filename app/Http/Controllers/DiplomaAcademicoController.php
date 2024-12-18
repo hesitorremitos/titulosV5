@@ -7,9 +7,8 @@ use App\Models\Carrera;
 use App\Models\DiplomaAcademico;
 use App\Models\Facultad;
 use App\Models\menciones\DA;
-use App\Models\menciones\TPN;
 use App\Models\Persona;
-use App\Models\TituloProfesional;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class DiplomaAcademicoController extends Controller
@@ -95,23 +94,32 @@ class DiplomaAcademicoController extends Controller
   /**
    * Display the specified resource.
    */
-  public function show(TituloProfesional $tituloProfesional)
+  public function show($id)
   {
-    //
+    $diploma = DiplomaAcademico::find($id);
+    // Comprobar si el archivo existe
+    if(Storage::disk('local')->exists($diploma->file_dir)){
+      // Retornar pagina pdf
+      return response()->file(Storage::disk('local')->path($diploma->file_dir));
+    } else {
+      $diploma->verificado = false;
+      $diploma->save();
+      return response()->json(['error' => 'El archivo no existe'], 404);
+    }
   }
 
   /**
    * Show the form for editing the specified resource.
    */
-  public function edit(TituloProfesional $tituloProfesional)
+  public function edit(DiplomaAcademico $titulo)
   {
-    //
+    return $titulo;
   }
 
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, TituloProfesional $tituloProfesional)
+  public function update(Request $request, DiplomaAcademico $tituloProfesional)
   {
     //
   }
@@ -119,7 +127,7 @@ class DiplomaAcademicoController extends Controller
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy(TituloProfesional $tituloProfesional)
+  public function destroy(DiplomaAcademico $tituloProfesional)
   {
     //
   }

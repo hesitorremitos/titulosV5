@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\DiplomaAcademico;
-use App\Models\menciones\DA;
-use App\Models\Persona;
 use Illuminate\Http\Request;
 
-class PersonaController extends Controller
+class DiplomasAcademicosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,15 +34,15 @@ class PersonaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DiplomaAcademico $persona)
+    public function show(DiplomaAcademico $id)
     {
-        return $persona;
+        return $id;
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Persona $persona)
+    public function edit(string $id)
     {
         //
     }
@@ -52,7 +50,7 @@ class PersonaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Persona $persona)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -60,7 +58,7 @@ class PersonaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Persona $persona)
+    public function destroy(string $id)
     {
         //
     }

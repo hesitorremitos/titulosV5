@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\DiplomaAcademicoController;
+use App\Http\Controllers\DiplomasAcademicosController;
+use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TituloProfesionalController;
 use App\Models\menciones\TPN;
@@ -31,7 +33,10 @@ Route::middleware('auth')->group(function () {
 Route::prefix('dashboard')->group(function () {
   Route::resource('diploma-academico', DiplomaAcademicoController::class);
   Route::resource('titulo-profesional', TituloProfesionalController::class);
+  Route::resource('mencion', PersonaController::class);
 })->middleware(['auth']);
+
+
 
 Route::post('mencion', function (Request $request) {
   $mencion = new TPN;

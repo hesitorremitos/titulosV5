@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { FilterMatchMode } from '@primevue/core/api';
-import { Button, Column, DataTable, FloatLabel, InputText } from 'primevue';
+import { Column, DataTable, FloatLabel, InputText } from 'primevue';
 import { ref } from 'vue';
 const { titulos } = defineProps(['titulos']);
 const filters = ref({
@@ -14,8 +14,9 @@ const filters = ref({
 
 <template>
 	<AuthenticatedLayout>
-		<section class="w-full bg-red-400">
+		<section class="w-full bg-blue-700 p-4">
 			<DataTable
+				size="small"
 				:value="titulos"
 				:rows="10"
 				:rowsPerPageOptions="[5, 10, 20]"
@@ -29,7 +30,7 @@ const filters = ref({
 				]"
 			>
 				<template #header>
-					<div class="flex justify-between">
+					<div class="flex justify-between bg-blue-700 p-4">
 						<FloatLabel variant="on">
 							<InputText
 								placeholder="Carnet de Identidad"
@@ -67,7 +68,15 @@ const filters = ref({
 				<Column header="Accion">
 					<template #body="slotProps">
 						<div class="card flex justify-center">
-							<Button size="small" :label="slotProps.data.id" type="button" />
+							<a
+								v-if="slotProps.data.verificado"
+								class="rounded-md bg-red-500 px-1 py-2 text-gray-200 hover:bg-red-700"
+								:href="route('diploma-academico.show', slotProps.data.id)"
+								target="_blank"
+							>
+								Ver
+							</a>
+							<p v-else class="text-red-500">No Doc</p>
 						</div>
 					</template>
 				</Column>
@@ -75,3 +84,37 @@ const filters = ref({
 		</section>
 	</AuthenticatedLayout>
 </template>
+
+<style scoped>
+:root {
+	--primary-color: #ff0000; /* Rojo */
+	--secondary-color: #0000ff; /* Azul */
+	--font-size: 16px;
+	--p-datatable-header-padding: 0;
+}
+
+/* Personalizar el DataTable */
+.p-datatable {
+	--p-datatable-header-padding: 10px;
+	--p-datatable-header-background-color: var(--primary-color);
+	--p-datatable-header-text-color: #ffffff;
+	--p-datatable-row-hover-background-color: var(--secondary-color);
+}
+
+/* Personalizar el Column */
+.p-column {
+	--p-column-padding: 10px;
+	--p-column-background-color: #f0f0f0;
+	--p-column-text-color: #333333;
+}
+
+/* Usar variables CSS */
+section {
+	color: var(--primary-color);
+	font-size: var(--font-size);
+}
+
+.text-red-500 {
+	color: var(--secondary-color);
+}
+</style>
