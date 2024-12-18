@@ -23,7 +23,10 @@ class DiplomaAcademico extends Model
 
     public function getFechaEmisionAttribute($value)
     {
-
+      # REalizar la conversion solamente si es numerico
+      if(is_numeric($value)) {
         return Carbon::parse($value/1000)->format('d/m/Y');
+      }
+      return $value;
     }
 }

@@ -25,11 +25,11 @@ return new class extends Migration
       $table->unsignedInteger('fojas');
       $table->unsignedInteger('libro');
       $table->date('fecha_emision');
-      $table->string('observaciones')->nullable();
-      $table->string('graduacion')->nullable();
-      $table->string('file_dir')->nullable();
       $table->foreignId('mencion_da_id')->constrained('menciones_da', 'id');
+      $table->string('observaciones')->nullable();
       $table->foreignId('graduacion_id')->constrained('graduacion_da','id');
+      $table->string('file_dir', 500)->nullable();
+      $table->boolean('verificado')->default(false);
       $table->timestamps();
       // Llave foranea para ci con la tabla personas
       $table->foreign('ci')->references('ci')->on('personas');

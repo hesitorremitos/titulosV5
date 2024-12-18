@@ -1,9 +1,9 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { FilterMatchMode } from '@primevue/core/api';
-import { Column, DataTable, FloatLabel, InputText } from 'primevue';
+import { Button, Column, DataTable, FloatLabel, InputText } from 'primevue';
 import { ref } from 'vue';
-const { titulos } = defineProps(['personas', 'titulos']);
+const { titulos } = defineProps(['titulos']);
 const filters = ref({
 	ci: { value: null, matchMode: FilterMatchMode.CONTAINS },
 	'persona.nombres': { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -58,12 +58,17 @@ const filters = ref({
 						</FloatLabel>
 					</div>
 				</template>
-				<Column field="ci" header="ID"></Column>
+				<Column field="ci" header="CI"></Column>
 				<Column field="persona.nombres" header="Nombres"></Column>
 				<Column field="persona.paterno" header="Paterno"></Column>
 				<Column field="persona.materno" header="Materno"></Column>
 				<Column field="mencion.nombre" header="Mencion"></Column>
 				<Column field="fecha_emision" header="Fecha de emision"></Column>
+				<Column header="Accion">
+					<div class="card flex justify-center">
+						<Button label="VER" type="button" />
+					</div>
+				</Column>
 			</DataTable>
 		</section>
 	</AuthenticatedLayout>

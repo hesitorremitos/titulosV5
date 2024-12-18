@@ -19,7 +19,6 @@ class DiplomaAcademicoController extends Controller
    */
   public function index() {
     return Inertia::render('Search', [
-      'personas' => Persona::with('diplomas_academicos')->get(),
       'titulos'=> DiplomaAcademico::with('persona')->with('mencion')->get(),
     ]);
   }
