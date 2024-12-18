@@ -58,6 +58,9 @@ class CheckFiles extends Command
                     $diploma->verificado = false;
                     $this->error('El archivo no existe');
                 }
+            }else if(!Storage::disk('local')->exists($diploma->file_dir)){
+                $diploma->verificado = false;
+                $diploma->save();
             }
 
         }
