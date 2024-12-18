@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\DiplomaAcademico;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 
 class CheckFiles extends Command
 {
@@ -29,10 +30,10 @@ class CheckFiles extends Command
     {
         $diplomas = DiplomaAcademico::with('persona', 'mencion')->get();
         foreach ($diplomas as $diploma) {
-            $filePath = 'DiplomaAcademico/'. $diploma->mencion->nombre . '/';
+            $filePath = 'Diplomas Academicos/'. $diploma->file_dir . '/';
             # el nombre del archivo sera CI - NombresPersonas - ApellidoPaterno - ApellidoMaterno.pdf
             # Si no tiene apellido paterno o materno, se omiten
-            $fileName = $diploma->persona->ci . ' - ' . $diploma->persona->nombres;
+            $fileName = $diploma->persona->ci . '- ' . $diploma->persona->nombres;
             if($diploma->persona->paterno) {
                 $fileName .= ' ' . $diploma->persona->paterno;
             }
@@ -41,14 +42,24 @@ class CheckFiles extends Command
             }
             $fileName = $fileName . '.pdf';
 
-            $this->info('Verificando archivo: ' . $fileName);
 
-            if(file_exists($filePath . $fileName)) {
-                $this->info('El archivo existe');
-                $diploma->update(['archivo' => $fileName]);
-            } else {
-                $this->error('El archivo no existe');
+            if($diploma->verificado==false) {
+                $this->info('Verificando archivo: ' . $filePath. $fileName);
+                if (Storage::disk('local')->exists("respaldo/" . $filePath . $fileName)) {
+                    $this->info('El archivo existe');
+
+                    // Mover el archivo de respaldo a la carpeta DiplomaAcademico
+                    Storage::disk('local')->copy("respaldo/" . $filePath . $fileName, $filePath . $fileName);
+                    // Actualizar el registro en la base de datos
+                    $diploma->file_dir = $filePath . $fileName;
+                    $diploma->verificado = true;
+                    $diploma->save();
+                } else {
+                    $diploma->verificado = false;
+                    $this->error('El archivo no existe');
+                }
             }
+
         }
     }
 }
