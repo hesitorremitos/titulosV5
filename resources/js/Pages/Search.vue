@@ -14,8 +14,11 @@ const filters = ref({
 
 <template>
 	<AuthenticatedLayout>
-		<section class="w-full bg-blue-700 p-4">
+		<section class="flex max-w-full flex-col rounded-lg bg-blue-500 p-4">
 			<DataTable
+				scrollable
+				class="flex-grow"
+				scrollHeight="350px"
 				size="small"
 				:value="titulos"
 				:rows="10"
@@ -30,7 +33,7 @@ const filters = ref({
 				]"
 			>
 				<template #header>
-					<div class="flex justify-between bg-blue-700 p-4">
+					<div class="flex justify-between bg-blue-500 p-4">
 						<FloatLabel variant="on">
 							<InputText
 								placeholder="Carnet de Identidad"
@@ -39,22 +42,20 @@ const filters = ref({
 						</FloatLabel>
 						<FloatLabel>
 							<InputText
-								placeholder="Nombres"
-								v-model="filters['persona.nombres'].value"
-							/>
-						</FloatLabel>
-
-						<FloatLabel>
-							<InputText
 								placeholder="Paterno"
 								v-model="filters['persona.paterno'].value"
 							/>
 						</FloatLabel>
-
 						<FloatLabel>
 							<InputText
 								placeholder="Materno"
 								v-model="filters['persona.materno'].value"
+							/>
+						</FloatLabel>
+						<FloatLabel>
+							<InputText
+								placeholder="Nombres"
+								v-model="filters['persona.nombres'].value"
 							/>
 						</FloatLabel>
 					</div>
@@ -63,7 +64,11 @@ const filters = ref({
 				<Column field="persona.nombres" header="Nombres"></Column>
 				<Column field="persona.paterno" header="Paterno"></Column>
 				<Column field="persona.materno" header="Materno"></Column>
-				<Column field="mencion.nombre" header="Mencion"></Column>
+				<Column
+					class="overflow-hidden"
+					field="mencion.nombre"
+					header="Mencion"
+				></Column>
 				<Column field="fecha_emision" header="Fecha de emision"></Column>
 				<Column header="Accion">
 					<template #body="slotProps">
@@ -76,7 +81,7 @@ const filters = ref({
 							>
 								Ver
 							</a>
-							<p v-else class="text-red-500">No Doc</p>
+							<p v-else class="text-sm text-red-500">No Doc</p>
 						</div>
 					</template>
 				</Column>

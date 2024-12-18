@@ -53,7 +53,7 @@ class CheckFiles extends Command
           $this->info('El archivo existe');
 
           // Mover el archivo de respaldo a la carpeta DiplomaAcademico
-          Storage::disk('local')->copy("respaldo/2020/" . $filePath . $fileName, $filePath . $fileName);
+          Storage::disk('local')->move("respaldo/2020/" . $filePath . $fileName, $filePath . $fileName);
           // Actualizar el registro en la base de datos
           $diploma->file_dir = $filePath . $fileName;
           $diploma->verificado = true;
