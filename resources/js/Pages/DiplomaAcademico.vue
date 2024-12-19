@@ -604,8 +604,11 @@ const filteredMenciones = computed(() => {
 	</AuthenticatedLayout>
 </template>
 
-<style>
+<style scoped>
 .p-invalid {
 	border-color: red;
+}
+button {
+	background: red;
 }
 </style>
