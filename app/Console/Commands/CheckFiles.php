@@ -13,7 +13,7 @@ class CheckFiles extends Command
    *
    * @var string
    */
-  protected $signature = 'check:files';
+  protected $signature = 'check:files {year}';
   protected $description = 'Revisa los archivos en el directorio y actualiza los registros de DiplomaAcademico';
 
 
@@ -28,6 +28,7 @@ class CheckFiles extends Command
    */
   public function handle()
   {
+    $year = $this->argument('year');
     $diplomas = DiplomaAcademico::with('persona', 'mencion')->get();
     foreach ($diplomas as $diploma) {
 
@@ -37,7 +38,7 @@ class CheckFiles extends Command
           $diploma->save();
         }
       } else {
-        $filePath = 'Diplomas Academicos/' . $diploma->file_dir . '/';
+        $filePath = 'Diplomas Academicos/' . $diploma->observaciones . '/';
         # el nombre del archivo sera CI - NombresPersonas - ApellidoPaterno - ApellidoMaterno.pdf
         # Si no tiene apellido paterno o materno, se omiten
         $fileName = $diploma->persona->ci . '- ' . $diploma->persona->nombres;
@@ -49,11 +50,11 @@ class CheckFiles extends Command
         }
         $fileName = $fileName . '.pdf';
         $this->info('Verificando archivo: ' . $filePath . $fileName);
-        if (Storage::disk('local')->exists("respaldo/2020/" . $filePath . $fileName)) {
+        if (Storage::disk('local')->exists("respaldo/{$year}/" . $filePath . $fileName)) {
           $this->info('El archivo existe');
 
           // Mover el archivo de respaldo a la carpeta DiplomaAcademico
-          Storage::disk('local')->move("respaldo/2020/" . $filePath . $fileName, $filePath . $fileName);
+          Storage::disk('local')->move("respaldo/{$year}/" . $filePath . $fileName, $filePath . $fileName);
           // Actualizar el registro en la base de datos
           $diploma->file_dir = $filePath . $fileName;
           $diploma->verificado = true;
