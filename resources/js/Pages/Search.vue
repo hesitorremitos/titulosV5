@@ -7,6 +7,7 @@ import {
 	FloatLabel,
 	InputText,
 	ToggleSwitch,
+	Button,
 } from 'primevue';
 import { ref } from 'vue';
 const { titulos } = defineProps(['titulos']);
@@ -60,7 +61,7 @@ const filters = ref({
 						/>
 						<div class="text-color font-medium">
 							<span class="hidden sm:block"
-								>Showing {{ first }} to {{ last }} of {{ totalRecords }}</span
+								>Registro {{ first }} a {{ last }} de {{ totalRecords }}</span
 							>
 							<span class="block sm:hidden"
 								>Page {{ page + 1 }} of {{ pageCount }}</span
@@ -83,12 +84,6 @@ const filters = ref({
 								v-model="filters['ci'].value"
 							/>
 						</FloatLabel>
-						<FloatLabel>
-							<InputText
-								placeholder="Nombres"
-								v-model="filters['persona.nombres'].value"
-							/>
-						</FloatLabel>
 
 						<FloatLabel>
 							<InputText
@@ -103,8 +98,15 @@ const filters = ref({
 								v-model="filters['persona.materno'].value"
 							/>
 						</FloatLabel>
+
 						<FloatLabel>
-							<ToggleSwitch offLabel="No" onLabel="Si" />
+							<InputText
+								placeholder="Nombres"
+								v-model="filters['persona.nombres'].value"
+							/>
+						</FloatLabel>
+						<FloatLabel>
+							<ToggleSwitch />
 						</FloatLabel>
 					</div>
 				</template>
