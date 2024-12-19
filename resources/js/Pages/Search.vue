@@ -1,7 +1,13 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { FilterMatchMode } from '@primevue/core/api';
-import { Column, DataTable, FloatLabel, InputText } from 'primevue';
+import {
+	Column,
+	DataTable,
+	FloatLabel,
+	InputText,
+	ToggleSwitch,
+} from 'primevue';
 import { ref } from 'vue';
 const { titulos } = defineProps(['titulos']);
 const filters = ref({
@@ -18,7 +24,9 @@ const filters = ref({
 			<DataTable
 				size="small"
 				:value="titulos"
-				:rows="10"
+				expade
+				:rows="5"
+				paginator
 				:rowsPerPageOptions="[5, 10, 20]"
 				filterDisplay="menu"
 				v-model:filters="filters"
@@ -29,6 +37,44 @@ const filters = ref({
 					'persona.materno',
 				]"
 			>
+				<template
+					#paginatorcontainer="{
+						first,
+						last,
+						page,
+						pageCount,
+						prevPageCallback,
+						nextPageCallback,
+						totalRecords,
+					}"
+				>
+					<div
+						class="border-primary flex w-full items-center justify-between gap-4 rounded-full border bg-transparent px-2 py-1"
+					>
+						<Button
+							icon="pi pi-chevron-left"
+							rounded
+							text
+							@click="prevPageCallback"
+							:disabled="page === 0"
+						/>
+						<div class="text-color font-medium">
+							<span class="hidden sm:block"
+								>Showing {{ first }} to {{ last }} of {{ totalRecords }}</span
+							>
+							<span class="block sm:hidden"
+								>Page {{ page + 1 }} of {{ pageCount }}</span
+							>
+						</div>
+						<Button
+							icon="pi pi-chevron-right"
+							rounded
+							text
+							@click="nextPageCallback"
+							:disabled="page === pageCount - 1"
+						/>
+					</div>
+				</template>
 				<template #header>
 					<div class="flex justify-between bg-blue-700 p-4">
 						<FloatLabel variant="on">
@@ -57,8 +103,13 @@ const filters = ref({
 								v-model="filters['persona.materno'].value"
 							/>
 						</FloatLabel>
+						<FloatLabel>
+							<ToggleSwitch offLabel="No" onLabel="Si" />
+						</FloatLabel>
 					</div>
 				</template>
+				<Column expander style="width: 5rem" />
+
 				<Column field="ci" header="CI"></Column>
 				<Column field="persona.nombres" header="Nombres"></Column>
 				<Column field="persona.paterno" header="Paterno"></Column>
@@ -80,6 +131,16 @@ const filters = ref({
 						</div>
 					</template>
 				</Column>
+				<template #expansion="slotProps">
+					<div class="p-4">
+						<p>CI: {{ slotProps.data.ci }}</p>
+						<p>Nombres: {{ slotProps.data.persona.nombres }}</p>
+						<p>Paterno: {{ slotProps.data.persona.paterno }}</p>
+						<p>Materno: {{ slotProps.data.persona.materno }}</p>
+						<p>Mencion: {{ slotProps.data.mencion.nombre }}</p>
+						<p>Fecha de emision: {{ slotProps.data.fecha_emision }}</p>
+					</div>
+				</template>
 			</DataTable>
 		</section>
 	</AuthenticatedLayout>
