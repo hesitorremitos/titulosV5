@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { useForm } from '@inertiajs/vue3';
+
 import {
 	Button,
 	DatePicker,
@@ -13,9 +14,11 @@ import {
 	Select,
 	Toast,
 } from 'primevue';
+
 import { useToast } from 'primevue/usetoast';
-import { ref, watch } from 'vue';
-import searchPerson from './searchPerson';
+import { ref } from 'vue';
+import MencionDialog from './components/MencionDialog.vue';
+import TituloForm from './components/TituloForm.vue';
 
 const props = defineProps<{
 	menciones: {
@@ -27,21 +30,6 @@ const props = defineProps<{
 		id: number;
 	}[];
 }>();
-
-interface Person {
-	ci: string;
-	nombres: string;
-	paterno: string;
-	materno: string;
-	fec_nacimiento: string;
-	pais: string;
-	departamento: string;
-	provincia: string;
-	localidad: string;
-	programa: string;
-	facultad: string;
-	// Agrega otros campos según sea necesario
-}
 
 const form = useForm({
 	ci: '',
@@ -65,10 +53,12 @@ const form = useForm({
 	sexo: '',
 });
 
-const programas = ref<Person[]>([]);
-const selectedPrograma = ref<string>('');
-const isLoading = ref<boolean>(false);
-const isReadonly = ref<boolean>(false);
+const programas = ref([]);
+const selectedPrograma = ref('');
+const isLoading = ref(false);
+const isReadonly = ref(false);
+const toast = useToast();
+const mencionDoalog = ref(false);
 
 const buscarPersona = async () => {
 	isLoading.value = true;
@@ -126,13 +116,11 @@ const onProgramaChange = () => {
 		updateForm(selectedPerson);
 	}
 };
-const toast = useToast();
-// @ts-ignore
+
 const onFileSelect = (event) => {
 	form.file = event.files[0];
 };
 
-const mencionDoalog = ref(false);
 const mencionForm = useForm({
 	carrera_tpn: '',
 	mencion_tpn: '',
