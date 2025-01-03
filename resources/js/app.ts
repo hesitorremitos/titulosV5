@@ -1,3 +1,4 @@
+import 'primeicons/primeicons.css';
 import '../css/app.css';
 import './bootstrap';
 
@@ -8,8 +9,11 @@ import 'vuetify/styles';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 // Vuetify
 import Aura from '@primevue/themes/aura';
+import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
+
+const pinia = createPinia();
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -24,6 +28,7 @@ createInertiaApp({
 		createApp({ render: () => h(App, props) })
 			.use(plugin)
 			.use(ZiggyVue)
+			.use(pinia)
 			.use(PrimeVue, {
 				theme: {
 					preset: Aura,

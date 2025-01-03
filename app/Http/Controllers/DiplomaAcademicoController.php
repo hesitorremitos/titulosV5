@@ -2,30 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Carrera;
+use App\Models\DiplomaAcademico;
 use App\Models\Facultad;
 use App\Models\menciones\DA;
-use App\Models\menciones\TPN;
 use App\Models\Persona;
-use App\Models\TituloProfesional;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
-class TituloProfesionalController extends Controller
+class DiplomaAcademicoController extends Controller
 {
-  /**
+    /**
    * Display a listing of the resource.
    */
-  public function index() {}
+  public function index() {
+    return Inertia::render('Search', [
+      'titulos'=> DiplomaAcademico::with('persona')->with('mencion')->get(),
+    ]);
+  }
 
   /**
    * Show the form for creating a new resource.
    */
   public function create()
   {
-    return Inertia::render('TituloProfesional', [
+    return Inertia::render('DiplomaAcademico', [
       'menciones' => DA::all(),
-      'carreras' => Carrera::all()
+      'carreras' => Carrera::with('menciones')->get(),
     ]);
   }
 
@@ -55,7 +59,7 @@ class TituloProfesionalController extends Controller
       'file' => 'required|file|mimes:pdf'
     ]);
 
-    $facultad = Facultad::firstOrCreate([
+    $facultad = Facultad::find([
       'nombre' => $valitated['facultad'],
     ]);
 
@@ -63,7 +67,7 @@ class TituloProfesionalController extends Controller
       'programa' => $valitated['programa'],
     ]);
     // buscar la persona
-    $finded_person = Persona::find($valitated['ci']);
+    $finded_person = Persona::firstOrCreate($valitated['ci']);
     if ($finded_person) {
       $persona = $finded_person;
     } else {
@@ -83,30 +87,39 @@ class TituloProfesionalController extends Controller
     // Alacenar el file en el storage con el siguiente formato: TituloProfesional/Carrera/CI.pdf
     $file = $valitated['file'];
     $file_name = $carrera->nombre . '/' . $persona->ci . '.pdf';
-    $file->storeAs('TituloProfesional/'. $carrera->nombre, $persona->ci . '- '.  $persona->nombres .' '.$persona->paterno.' '.$persona->materno.'.pdf');
+    $file->storeAs('DiplomaAcademico/'. $carrera->nombre, $persona->ci . '- '.  $persona->nombres .' '.$persona->paterno.' '.$persona->materno.'.pdf');
     return $persona;
   }
 
   /**
    * Display the specified resource.
    */
-  public function show(TituloProfesional $tituloProfesional)
+  public function show($id)
   {
-    //
+    $diploma = DiplomaAcademico::find($id);
+    // Comprobar si el archivo existe
+    if(Storage::disk('local')->exists($diploma->file_dir)){
+      // Retornar pagina pdf
+      return response()->file(Storage::disk('local')->path($diploma->file_dir));
+    } else {
+      $diploma->verificado = false;
+      $diploma->save();
+      return response()->json(['error' => 'El archivo no existe'], 404);
+    }
   }
 
   /**
    * Show the form for editing the specified resource.
    */
-  public function edit(TituloProfesional $tituloProfesional)
+  public function edit(DiplomaAcademico $titulo)
   {
-    //
+    return $titulo;
   }
 
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, TituloProfesional $tituloProfesional)
+  public function update(Request $request, DiplomaAcademico $tituloProfesional)
   {
     //
   }
@@ -114,7 +127,7 @@ class TituloProfesionalController extends Controller
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy(TituloProfesional $tituloProfesional)
+  public function destroy(DiplomaAcademico $tituloProfesional)
   {
     //
   }

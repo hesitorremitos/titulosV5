@@ -16,12 +16,12 @@ return new class extends Migration
       $table->string('nombres');
       $table->string('paterno')->nullable();
       $table->string('materno')->nullable();
-      $table->date('fecha_nacimiento');
-      $table->string('pais', 50);
-      $table->string('Departamento', 50);
-      $table->string('Provincia', 50);
-      $table->string('Localidad', 50);
-      $table->string('genero', 20);
+      $table->date('fecha_nacimiento')->nullable();
+      $table->string('pais', 50)->nullable();
+      $table->string('Departamento', 50)->nullable();
+      $table->string('Provincia', 50)->nullable();
+      $table->string('Localidad', 50)->nullable();
+      $table->char('genero',1)->nullable();
       $table->timestamps();
     });
   }

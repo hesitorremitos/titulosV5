@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vue-tsc && vite build",
+        "build": "vite build",
         "dev": "vite",
         "lint": "eslint resources/js --ext .js,.ts,.vue --ignore-path .gitignore --fix"
     },
@@ -24,13 +24,15 @@
         "prettier-plugin-organize-imports": "^4.0.0",
         "prettier-plugin-tailwindcss": "^0.6.5",
         "tailwindcss": "^3.2.1",
-        "typescript": "^5.5.3",
         "vite": "^5.0",
         "vue": "^3.4.0",
-        "vue-tsc": "^2.0.24"
+        "vue-tsc": "2.0.29",
+        "typescript": "5.6.2"
     },
     "dependencies": {
         "@primevue/themes": "^4.2.3",
+        "pinia": "^2.3.0",
+        "primeicons": "^7.0.0",
         "primevue": "^4.2.3",
         "vuetify": "^3.7.4"
     }

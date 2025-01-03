@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DiplomaAcademico;
+use App\Models\menciones\DA;
 use App\Models\Persona;
 use Illuminate\Http\Request;
 
@@ -34,9 +36,9 @@ class PersonaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Persona $persona)
+    public function show(DiplomaAcademico $persona)
     {
-        //
+        return $persona;
     }
 
     /**

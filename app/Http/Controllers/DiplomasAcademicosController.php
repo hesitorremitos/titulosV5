@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Carrera;
+use App\Models\DiplomaAcademico;
 use Illuminate\Http\Request;
 
-class CarreraController extends Controller
+class DiplomasAcademicosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,24 +34,15 @@ class CarreraController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(DiplomaAcademico $id)
     {
-        // Cargar la carrera junto con sus menciones
-        $carrera = Carrera::with('menciones')->find($id);
-
-        // Verificar si la carrera existe
-        if (!$carrera) {
-            return response()->json(['message' => 'Carrera not found'], 404);
-        }
-
-        // Retornar la carrera con sus menciones
-        return response()->json($carrera);
+        return $id;
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Carrera $carrera)
+    public function edit(string $id)
     {
         //
     }
@@ -59,7 +50,7 @@ class CarreraController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Carrera $carrera)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -67,7 +58,7 @@ class CarreraController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Carrera $carrera)
+    public function destroy(string $id)
     {
         //
     }

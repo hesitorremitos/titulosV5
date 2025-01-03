@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\DiplomaAcademicoController;
+use App\Http\Controllers\DiplomasAcademicosController;
+use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TituloProfesionalController;
 use App\Models\menciones\TPN;
@@ -9,13 +12,17 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-  return Inertia::render('Welcome', [
+  return Inertia::render('DA', [
     'canLogin' => Route::has('login'),
     'canRegister' => Route::has('register'),
     'laravelVersion' => Application::VERSION,
     'phpVersion' => PHP_VERSION,
   ]);
-});
+})->name('DA');
+
+Route::get('/TPN', function () {
+  return Inertia::render('TPN');
+})->name('TPN');
 
 Route::get('/dashboard', function () {
   return Inertia::render('Dashboard');
@@ -28,8 +35,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix('dashboard')->group(function () {
+  Route::resource('diploma-academico', DiplomaAcademicoController::class);
   Route::resource('titulo-profesional', TituloProfesionalController::class);
-});
+  Route::resource('mencion', PersonaController::class);
+})->middleware(['auth']);
+
+
 
 Route::post('mencion', function (Request $request) {
   $mencion = new TPN;

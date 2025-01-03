@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { useForm } from '@inertiajs/vue3';
-
 import {
 	Button,
 	DatePicker,
@@ -14,11 +13,9 @@ import {
 	Select,
 	Toast,
 } from 'primevue';
-
 import { useToast } from 'primevue/usetoast';
-import { ref } from 'vue';
-import MencionDialog from './components/MencionDialog.vue';
-import TituloForm from './components/TituloForm.vue';
+import { computed, ref, watch } from 'vue';
+import searchPerson from './searchPerson';
 
 const props = defineProps<{
 	menciones: {
@@ -26,10 +23,29 @@ const props = defineProps<{
 		carrera_id: number;
 	}[];
 	carreras: {
-		nombre: string;
+		programa: string;
 		id: number;
+		menciones: {
+			nombre: string;
+			id: number;
+		};
 	}[];
 }>();
+
+interface Person {
+	ci: string;
+	nombres: string;
+	paterno: string;
+	materno: string;
+	fec_nacimiento: string;
+	pais: string;
+	departamento: string;
+	provincia: string;
+	localidad: string;
+	programa: string;
+	facultad: string;
+	// Agrega otros campos según sea necesario
+}
 
 const form = useForm({
 	ci: '',
@@ -45,7 +61,6 @@ const form = useForm({
 	nro_documento: '',
 	fojas: '',
 	libro: '',
-	nivel: '',
 	programa: '',
 	fecha_emision: undefined,
 	mencion: '',
@@ -53,12 +68,10 @@ const form = useForm({
 	sexo: '',
 });
 
-const programas = ref([]);
-const selectedPrograma = ref('');
-const isLoading = ref(false);
-const isReadonly = ref(false);
-const toast = useToast();
-const mencionDoalog = ref(false);
+const programas = ref<Person[]>([]);
+const selectedPrograma = ref<string>('');
+const isLoading = ref<boolean>(false);
+const isReadonly = ref<boolean>(false);
 
 const buscarPersona = async () => {
 	isLoading.value = true;
@@ -103,7 +116,6 @@ const clearForm = () => {
 	form.programa = '';
 	form.fojas = '';
 	form.libro = '';
-	form.nivel = '';
 	form.mencion = '';
 	// Limpia otros campos según sea necesario
 };
@@ -116,11 +128,13 @@ const onProgramaChange = () => {
 		updateForm(selectedPerson);
 	}
 };
-
+const toast = useToast();
+// @ts-ignore
 const onFileSelect = (event) => {
 	form.file = event.files[0];
 };
 
+const mencionDoalog = ref(false);
 const mencionForm = useForm({
 	carrera_tpn: '',
 	mencion_tpn: '',
@@ -139,6 +153,14 @@ watch(
 		console.log(form);
 	},
 );
+
+const filteredMenciones = computed(() => {
+	console.log(form.programa);
+	const carrera = props.carreras.find((c) => c.programa == form.programa);
+	console.log(carrera?.menciones);
+	// Filtrar solamente el nombre de las menciones
+	return carrera?.menciones || [];
+});
 </script>
 
 <template>
@@ -387,7 +409,7 @@ watch(
 						{{ form.errors.sexo }}
 					</Message>
 				</div>
-				<div class="grid grid-cols-4 gap-x-3">
+				<div class="grid grid-cols-3 gap-x-3">
 					<div>
 						<FloatLabel variant="on">
 							<InputText
@@ -445,26 +467,6 @@ watch(
 							{{ form.errors.libro }}
 						</Message>
 					</div>
-					<div>
-						<FloatLabel variant="on">
-							<Select
-								class="w-full"
-								id="nivel"
-								v-model="form.nivel"
-								:options="['Licenciatura']"
-								:class="{ 'p-invalid': form.errors.nivel }"
-							/>
-							<label for="nivel">Nivel</label>
-						</FloatLabel>
-						<Message
-							v-if="form.errors.nivel"
-							severity="error"
-							size="small"
-							variant="simple"
-						>
-							{{ form.errors.nivel }}
-						</Message>
-					</div>
 				</div>
 				<div class="grid grid-cols-2 gap-x-3">
 					<div>
@@ -490,7 +492,9 @@ watch(
 							id="mencion"
 							class="w-full"
 							v-model="form.mencion"
-							:options="props.menciones.map((m) => m.nombre)"
+							:options="filteredMenciones"
+							option-label="nombre"
+							option-value="nombre"
 							:class="{ 'p-invalid': form.errors.mencion }"
 						>
 							<template #footer>
@@ -525,7 +529,7 @@ watch(
 									class="flex-auto"
 									:options="
 										props.carreras.map((c, i) => ({
-											label: c.nombre,
+											label: c.programa,
 											value: c.id,
 										}))
 									"
@@ -600,8 +604,11 @@ watch(
 	</AuthenticatedLayout>
 </template>
 
-<style>
+<style scoped>
 .p-invalid {
 	border-color: red;
+}
+button {
+	background: red;
 }
 </style>
