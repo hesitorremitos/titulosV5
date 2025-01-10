@@ -5,6 +5,7 @@ use App\Http\Controllers\DiplomasAcademicosController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TituloProfesionalController;
+use App\Models\DiplomaAcademico;
 use App\Models\menciones\TPN;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
@@ -17,6 +18,22 @@ Route::get('/', function () {
     'canRegister' => Route::has('register'),
     'laravelVersion' => Application::VERSION,
     'phpVersion' => PHP_VERSION,
+  ]);
+})->name('DA');
+
+Route::get('/DA', function (Request $request) {
+  $query = DiplomaAcademico::with(['persona', 'mencion']);
+  if ($request->has('ci')) {
+    $query->where('ci', 'like', '%' . $request->ci . '%');
+  }
+  if ($request->has('nombres')) {
+    $query->whereHas('persona', function ($q) use ($request) {
+      $q->where('nombres', 'like', '%' . $request->nombres . '%');
+    });
+  }
+  return Inertia::render('DA', [
+    'titulos' => $query->paginate(10),
+    'request' => $request->all(),
   ]);
 })->name('DA');
 

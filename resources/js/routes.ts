@@ -4,8 +4,8 @@ interface route {
 }
 
 const routes: route[] = [
-	{ route: 'DA', label: 'Dashboard' },
-	{ route: 'TPN', label: 'home' },
+	{ route: 'diploma-academico.index', label: 'Diploma Academico' },
+	{ route: 'TPN', label: 'Titulo Profesional' },
 ];
 
 export default routes;

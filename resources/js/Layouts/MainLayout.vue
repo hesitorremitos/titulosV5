@@ -4,12 +4,12 @@ import routes from '@/routes';
 </script>
 
 <template>
-	<div class="h-screen w-screen">
-		<header class="bg-gray-800 p-4 text-white">
-			<h1>My App {{ route().current() }}</h1>
+	<div class="h-screen w-screen overflow-hidden">
+		<header class="bold bg-gray-800 p-4 uppercase text-white">
+			<h1>Departamento de Titulos</h1>
 		</header>
-		<div class="flex">
-			<aside class="w-auto text-white">
+		<div class="flex h-[calc(100vh-64px)]">
+			<aside class="w-auto text-nowrap text-white">
 				<ul class="bg-gray-800 p-2">
 					<li
 						class="border-b-gray-500"
@@ -23,7 +23,7 @@ import routes from '@/routes';
 					</li>
 				</ul>
 			</aside>
-			<main>
+			<main class="flex-1 overflow-hidden">
 				<slot></slot>
 			</main>
 		</div>

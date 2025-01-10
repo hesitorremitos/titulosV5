@@ -16,9 +16,29 @@ class DiplomaAcademicoController extends Controller
     /**
    * Display a listing of the resource.
    */
-  public function index() {
-    return Inertia::render('Search', [
-      'titulos'=> DiplomaAcademico::with('persona')->with('mencion')->get(),
+  public function index(Request $request) {
+    $query = DiplomaAcademico::with(['persona', 'mencion']);
+    if ($request->has('ci')) {
+      $query->where('ci', 'like', '%' . $request->ci . '%');
+    }
+    if ($request->has('nombres')) {
+      $query->whereHas('persona', function ($q) use ($request) {
+        $q->where('nombres', 'like', '%' . $request->nombres . '%');
+      });
+    }
+    if ($request->has('paterno')) {
+      $query->whereHas('persona', function ($q) use ($request) {
+        $q->where('paterno', 'like', '%' . $request->paterno . '%');
+      });
+    }
+    if ($request->has('materno')) {
+      $query->whereHas('persona', function ($q) use ($request) {
+        $q->where('materno', 'like', '%' . $request->materno . '%');
+      });
+    }
+    return Inertia::render('DA', [
+      'titulos' => $query->paginate(10),
+      'request' => $request->all(),
     ]);
   }
 
